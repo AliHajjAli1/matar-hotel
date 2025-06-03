@@ -127,10 +127,11 @@ const Reservations = () => {
 			<div className='employees-container'>
 				{!query && (
 					<BasicTable
-						reqData={data}
+						reqData={data}	
 						columns={columns}
 						redirect={"reservation"}
 						err={err}
+						title={"reservations"}
 					/>
 				)}
 				{query && (

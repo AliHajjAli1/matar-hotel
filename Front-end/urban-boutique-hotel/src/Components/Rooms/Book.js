@@ -193,7 +193,6 @@ const Book = () => {
                   selected={checkInDate}
                   onChange={(date) => setCheckInDate(date)}
                   minDate={new Date(firstFreeDate)}
-                  maxDate={new Date(lastFreeDate)}
                   excludeDates={room.occupied_dates.map(
                     (date) => new Date(date)
                   )}
@@ -211,7 +210,6 @@ const Book = () => {
                   selected={checkOutDate}
                   onChange={(date) => setCheckOutDate(date)}
                   minDate={checkInDate}
-                  maxDate={maxCheckout}
                   placeholderText={t("res_checkout")}
                   className="react-datepicker"
                   dateFormat="yyyy/MM/dd"

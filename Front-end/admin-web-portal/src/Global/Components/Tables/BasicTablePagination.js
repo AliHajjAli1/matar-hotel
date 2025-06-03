@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 // API
 import FetchData from "../../../api-client/FetchData";
 
-const Table = ({ reqData, columns, redirect, err }) => {
+const Table = ({ reqData, columns, redirect, err, title }) => {
 	const [data, setData] = useState([]);
 	const [next, setNext] = useState("");
 	const [prev, setPrev] = useState("");
@@ -63,10 +63,10 @@ const Table = ({ reqData, columns, redirect, err }) => {
 				queryKey: ["users_data", next],
 			};
 			FetchData(param).then((res) => {
-				setData(res.data);
-				setNext(res.next_page_url);
-				setPrev(res.prev_page_url);
-				setCurrent(res.current_page);
+				setData(res[title]?.data || res.data);
+				setNext(res[title]?.next_page_url || res.next_page_url);
+				setPrev(res[title]?.prev_page_url || res.prev_page_url);
+				setCurrent(res[title]?.current_page || res.current_page);
 				setLoading(false);
 			});
 		}
@@ -81,10 +81,10 @@ const Table = ({ reqData, columns, redirect, err }) => {
 				queryKey: ["users_data", prev],
 			};
 			FetchData(param).then((res) => {
-				setData(res.data);
-				setNext(res.next_page_url);
-				setPrev(res.prev_page_url);
-				setCurrent(res.current_page);
+				setData(res[title]?.data || res.data);
+				setNext(res[title]?.next_page_url || res.next_page_url);
+				setPrev(res[title]?.prev_page_url || res.prev_page_url);
+				setCurrent(res[title]?.current_page || res.current_page);
 				setLoading(false);
 			});
 		}
