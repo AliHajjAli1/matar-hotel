@@ -1414,6 +1414,26 @@ h6 {
   cursor: pointer;
 }
 
+.move-images-div{
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;            
+  width: 100px;                   
+  margin: 0 auto;                 
+}
+
+.move-images-icon{
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 3px;
+  font-size: 22px;
+}
+
+.move-images-icon:hover {
+  background-color: rgba(172, 160, 160, 0.5);
+}
+
+
 .name-edit {
   display: flex;
   flex-direction: column;

@@ -1176,6 +1176,28 @@ h6 {
   height: 30%;
 }
 
+.arrow {
+  position: absolute;
+  top: 50%;
+  font-size: 2rem;
+  cursor: pointer;
+  color: white;
+  z-index: 2;
+  user-select: none;
+  padding: 3px;
+  color: gray;
+  border-radius: 50%;
+}
+
+.left-arrow {
+  left: 3%;
+}
+
+.right-arrow {
+  right: 3%;
+}
+
+
 .message-form {
   display: flex;
   flex-direction: column;

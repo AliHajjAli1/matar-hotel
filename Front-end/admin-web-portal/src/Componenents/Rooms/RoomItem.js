@@ -10,6 +10,7 @@ import DeleteRoom from "../../api-client/Rooms/DeleteRoom";
 //Icons
 import { AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin2Fill } from "react-icons/ri";
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 
 // Functions
 import checkEqual from "../../Global/Functions/CheckEqual";
@@ -152,6 +153,23 @@ const RoomItem = () => {
 			}
 		});
 	};
+
+	const moveImageLeft = (index) => {
+		if (index > 0) {
+			const newImages = [...images];
+			[newImages[index - 1], newImages[index]] = [newImages[index], newImages[index - 1]];
+			setImages(newImages);
+		}
+	};
+
+	const moveImageRight = (index) => {
+		if (index < images.length - 1) {
+			const newImages = [...images];
+			[newImages[index + 1], newImages[index]] = [newImages[index], newImages[index + 1]];
+			setImages(newImages);
+		}
+	};
+
 
 	const handleEdit = (e) => {
 		e.preventDefault();
@@ -607,7 +625,7 @@ const RoomItem = () => {
 							)}
 						</div>
 						<div className='gallery'>
-							{images.map((image) => {
+							{images.map((image,index) => {
 								return (
 									<div key={image.id}>
 										<img className='gallery-images' src={image.image_url} />
@@ -616,6 +634,12 @@ const RoomItem = () => {
 												className='delete-icon'
 												onClick={() => handleImageDelete(image.id)}
 											/>
+										)}
+										{edit && (
+											<div className="move-images-div">
+												<FaAngleLeft className="move-images-icon" onClick={() => moveImageLeft(index)}/>
+												<FaAngleRight className="move-images-icon" onClick={() => moveImageRight(index)}/>
+											</div>
 										)}
 									</div>
 								);

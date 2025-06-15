@@ -1,45 +1,27 @@
-import { useEffect, useState, useRef } from "react";
+import { useState } from "react";
+import { FaAngleUp, FaAngleDown } from "react-icons/fa";
 
 const Slideshow = ({ data, type }) => {
-  const delay = 10000;
-
   const [index, setIndex] = useState(0);
-  const timeoutRef = useRef(null);
 
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
+  const goToPrevious = () => {
+    setIndex((prevIndex) => (prevIndex === 0 ? data.length - 1 : prevIndex - 1));
+  };
 
-  useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(
-      () =>
-        setIndex((prevIndex) =>
-          prevIndex === data.length - 1 ? 0 : prevIndex + 1
-        ),
-      delay
-    );
-
-    return () => {
-      resetTimeout();
-    };
-  }, [index]);
+  const goToNext = () => {
+    setIndex((prevIndex) => (prevIndex === data.length - 1 ? 0 : prevIndex + 1));
+  };
 
   return (
     <div className={type === "Room" ? "slideshow rooms" : "slideshow"}>
-      <div
-        className="slideshowSlider"
-        style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}
-      >
-        {data.map((item, index) => (
-          <div className="slide" key={index}>
-            <div
-              className={
-                type === "Room" ? "slide-content rooms" : "slide-content"
-              }
-            >
+      <div className="arrow left-arrow" onClick={goToPrevious}>
+        <FaAngleDown />
+      </div>
+
+      <div className="slideshowSlider" style={{ transform: `translate3d(${-index * 100}%, 0, 0)` }}>
+        {data.map((item, idx) => (
+          <div className="slide" key={idx}>
+            <div className={type === "Room" ? "slide-content rooms" : "slide-content"}>
               <img src={item.image_url} alt="" className="slide-image" />
               <div className="slide-info">
                 <h2 className="slide-title">{item.title}</h2>
@@ -49,6 +31,11 @@ const Slideshow = ({ data, type }) => {
           </div>
         ))}
       </div>
+
+      <div className="arrow right-arrow" onClick={goToNext}>
+        <FaAngleUp />
+      </div>
+
       <div className="slideshowDots">
         {data.map((_, idx) => (
           <div
@@ -58,9 +45,7 @@ const Slideshow = ({ data, type }) => {
                 ? `slideshowDot rooms${index === idx ? " active" : ""}`
                 : `slideshowDot${index === idx ? " active" : ""}`
             }
-            onClick={() => {
-              setIndex(idx);
-            }}
+            onClick={() => setIndex(idx)}
           ></div>
         ))}
       </div>
